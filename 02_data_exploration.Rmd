@@ -1,0 +1,208 @@
+# Data preparation
+
+### EHI MAGs
+```{r load data}
+load("data/data.Rdata")
+```
+
+
+```{r load ehi mags}
+ehi_mags <- read_csv("data/ehi_mags.csv")
+colnames(ehi_mags)
+```
+Check contamination and completeness
+```{r contamination and completeness}
+genome_biplot <- ehi_mags %>%
+  dplyr::select(c(phylum,completeness,contamination,size)) %>%
+  ggplot(aes(x=completeness,y=contamination,size=size,color=phylum)) +
+              geom_point(alpha=0.7) +
+                    xlim(c(70,100)) +
+                    ylim(c(10,0)) +
+                    scale_color_manual(values=phylum_colors) +
+                    labs(y= "Contamination", x = "Completeness") +
+                    theme_classic() +
+                    theme(legend.position = "none")
+
+#Generate contamination boxplot
+genome_contamination <- ehi_mags %>%
+            ggplot(aes(y=contamination)) +
+                    ylim(c(10,0)) +
+                    geom_boxplot(colour = "#999999", fill="#cccccc") +
+                    theme_classic() +
+                    theme(legend.position = "none",
+                    axis.line = element_blank(),
+                    axis.title = element_blank(),
+                    axis.text=element_blank(),
+                    axis.ticks=element_blank(),
+                        plot.margin = unit(c(0, 0, 0.40, 0),"inches")) #add bottom-margin (top, right, bottom, left)
+
+genome_completeness <- ehi_mags %>%
+        ggplot(aes(x=completeness)) +
+                xlim(c(70,100)) +
+                geom_boxplot(colour = "#999999", fill="#cccccc") +
+                theme_classic() +
+                theme(legend.position = "none",
+                    axis.line = element_blank(),
+                    axis.title = element_blank(),
+                    axis.text=element_blank(),
+                    axis.ticks=element_blank(),
+                    plot.margin = unit(c(0, 0, 0, 0.50),"inches")) #add left-margin (top, right, bottom, left)
+
+#Render composite figure
+#pdf("figures/completeness_contamination.pdf",width=10, height=5)
+grid.arrange(grobs = list(genome_completeness,genome_biplot,genome_contamination),
+        layout_matrix = rbind(c(1,1,1,1,1,1,1,1,1,1,1,4),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3),
+                              c(2,2,2,2,2,2,2,2,2,2,2,3)))
+```
+
+Filter by completeness and contamination
+```{r filtering}
+ehi_mags_filtered <- ehi_mags %>%
+  filter(completeness > 90, contamination < 2.5)
+```
+
+
+
+### Host classes
+```{r count number of species in more than 2 host classes}
+species_hostclass_counts <- ehi_mags %>%
+  filter(!is.na(species), species != "") %>% 
+  filter(!is.na(host_class), host_class != "") %>% 
+  group_by(species) %>%
+  summarise(
+    n_host_classes = n_distinct(host_class),
+    host_classes = paste(sort(unique(host_class)), collapse = ", "),
+    phylum = paste(unique(phylum), collapse = ", ")
+  ) %>%
+  arrange(desc(n_host_classes))
+
+
+species_selection <- species_hostclass_counts %>%
+  filter(n_host_classes >= 3)
+
+species_selection
+```
+```{r check the phylums}
+species_selection %>% group_by(phylum)%>%
+  summarize(n_species = n())
+```
+### Host classes- after filtering
+```{r count number of species in more than 2 host classes after filtering}
+species_hostclass_counts_f <- ehi_mags_filtered %>%
+  filter(!is.na(species), species != "") %>% 
+  filter(!is.na(host_class), host_class != "") %>% 
+  group_by(species) %>%
+  summarise(
+    n_host_classes = n_distinct(host_class),
+    host_classes = paste(sort(unique(host_class)), collapse = ", "),
+    phylum = paste(unique(phylum), collapse = ", ")
+  ) %>%
+  arrange(desc(n_host_classes))
+
+
+species_selection_f <- species_hostclass_counts_f %>%
+  filter(n_host_classes >= 3)
+
+species_selection_f
+```
+
+```{r phylum after filtering}
+species_selection_f %>% group_by(phylum)%>%
+  summarize(n_species = n())
+```
+
+### Count host classes per species
+```{r count host classes per species}
+species_hostclass_counts <- ehi_mags_filtered %>%
+  filter(!is.na(species), species != "",
+         !is.na(host_class), host_class != "") %>%
+  group_by(species) %>%
+  summarise(
+    n_host_classes = n_distinct(host_class)) %>%
+  arrange(desc(n_host_classes))
+
+
+counts_species_per_class<- species_hostclass_counts %>% 
+  group_by(n_host_classes)%>%
+  summarize(n_species = n())
+
+ggplot(counts_species_per_class, aes(x = n_host_classes, y = n_species)) +
+  geom_col() +
+  geom_text(
+    aes(label = n_species),
+    vjust = -0.3,            
+    size = 4
+  ) +
+  labs(
+    title = "Number of Species per Number of Host Classes",
+    x = "Number of Host Classes",
+    y = "Number of Species"
+  ) +
+  theme_bw()
+
+```
+```{r add the count data to the ehi mags}
+mags_with_counts <- ehi_mags_filtered %>%
+  left_join(species_hostclass_counts, by = "species")
+
+#filter for mags with >2 host classes
+mags_host3 <- mags_with_counts %>%
+  filter(n_host_classes >= 3)
+
+#Species level:
+species_host3 <- mags_host3 %>%
+  group_by(species)%>%
+  summarise(phylum = first(phylum),
+            order = first(order),
+            family = first(family),
+            genus = first(genus),
+            host_classes = paste(sort(unique(host_class)), collapse = ", "),
+            host_species = paste(sort(unique(host_species)), collapse = ", "))
+```
+
+We have several MAGs per species, so here we select the "best MAG" (highest completeness and lowest contamination), to have statistics based on the best of each.
+```{r best mags per species}
+best_mag_per_species <- mags_host3 %>%
+  group_by(species) %>%
+  arrange(desc(completeness), contamination) %>%
+  slice(1) %>%
+  ungroup() %>%
+  transmute(
+    species,
+    best_mag_name = mag_name,
+    best_MAG_link = link_to_assembly,
+    best_genome_size = size,
+    best_completeness = completeness,
+    best_contamination = contamination,
+    best_N50 = N50,
+    best_host_classes = host_class,  
+    best_assembly_type = assembly_type, 
+    best_phylum =str_remove_all(phylum, "p__")) 
+  
+```
+
+
+```{r check genome size}
+ggplot(best_mag_per_species, aes(x= species, y = best_genome_size, fill = best_phylum))+
+  scale_color_manual(values=phylum_colors) +
+  scale_fill_manual(values=phylum_colors) +
+  geom_col()+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+
+
+
+
+

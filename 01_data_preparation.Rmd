@@ -16,8 +16,12 @@ ehi_mags <- read_csv("data/ehi_mags.csv")
 [AlberdiLab](www.alberdilab.dk) projects use unified color schemes developed for the [Earth Hologenome Initiative](www.earthhologenome.org), to facilitate figure interpretation.
 
 ```{r get_ehi_colors, warning=FALSE, comments="", message=FALSE, eval=FALSE}
+ehi_mags_p <- ehi_mags %>%
+  mutate(phylum=str_remove_all(phylum, "p__")) 
+
 phylum_colors <- read_tsv("https://raw.githubusercontent.com/earthhologenome/EHI_taxonomy_colour/main/ehi_phylum_colors.tsv") %>%
     mutate(phylum=str_remove_all(phylum, "p__")) %>%
+    right_join(ehi_mags_p, by=join_by(phylum == phylum)) %>%
     dplyr::select(phylum, colors) %>% 
     unique() %>%
     arrange(phylum) %>%
