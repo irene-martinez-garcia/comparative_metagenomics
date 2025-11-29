@@ -1991,12 +1991,20 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </ul></li>
 <li class="chapter" data-level="2" data-path="data-preparation.html"><a href="data-preparation.html"><i class="fa fa-check"></i><b>2</b> Data preparation</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="data-preparation.html"><a href="data-preparation.html#load-data"><i class="fa fa-check"></i><b>2.1</b> Load data</a>
+<li class="chapter" data-level="2.1" data-path="data-preparation.html"><a href="data-preparation.html#searching-for-the-mags"><i class="fa fa-check"></i><b>2.1</b> Searching for the MAGs</a></li>
+<li class="chapter" data-level="2.2" data-path="data-preparation.html"><a href="data-preparation.html#downloading-the-mags"><i class="fa fa-check"></i><b>2.2</b> Downloading the MAGs:</a></li>
+<li class="chapter" data-level="2.3" data-path="data-preparation.html"><a href="data-preparation.html#r-studio--data-analysis"><i class="fa fa-check"></i><b>2.3</b> R Studio- Data Analysis:</a></li>
+<li class="chapter" data-level="2.4" data-path="data-preparation.html"><a href="data-preparation.html#load-data"><i class="fa fa-check"></i><b>2.4</b> Load data</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="data-preparation.html"><a href="data-preparation.html#ehi-mags"><i class="fa fa-check"></i><b>2.1.1</b> EHI MAGs</a></li>
+<li class="chapter" data-level="2.4.1" data-path="data-preparation.html"><a href="data-preparation.html#ehi-mags"><i class="fa fa-check"></i><b>2.4.1</b> EHI MAGs</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="data-preparation.html"><a href="data-preparation.html#prepare-color-scheme"><i class="fa fa-check"></i><b>2.2</b> Prepare color scheme</a></li>
-<li class="chapter" data-level="2.3" data-path="data-preparation.html"><a href="data-preparation.html#wrap-working-objects"><i class="fa fa-check"></i><b>2.3</b> Wrap working objects</a></li>
+<li class="chapter" data-level="2.5" data-path="data-preparation.html"><a href="data-preparation.html#prepare-color-scheme"><i class="fa fa-check"></i><b>2.5</b> Prepare color scheme</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="data-preparation.html"><a href="data-preparation.html#sample-metadata"><i class="fa fa-check"></i><b>2.5.1</b> Sample metadata</a></li>
+<li class="chapter" data-level="2.5.2" data-path="data-preparation.html"><a href="data-preparation.html#genome-annotations"><i class="fa fa-check"></i><b>2.5.2</b> Genome annotations</a></li>
+<li class="chapter" data-level="2.5.3" data-path="data-preparation.html"><a href="data-preparation.html#distill-annotations-into-gifts"><i class="fa fa-check"></i><b>2.5.3</b> Distill annotations into GIFTs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="data-preparation.html"><a href="data-preparation.html#wrap-working-objects"><i class="fa fa-check"></i><b>2.6</b> Wrap working objects</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-preparation-1.html"><a href="data-preparation-1.html"><i class="fa fa-check"></i><b>3</b> Data preparation</a>
 <ul>
@@ -2004,6 +2012,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 <li class="chapter" data-level="3.0.2" data-path="data-preparation-1.html"><a href="data-preparation-1.html#host-classes"><i class="fa fa-check"></i><b>3.0.2</b> Host classes</a></li>
 <li class="chapter" data-level="3.0.3" data-path="data-preparation-1.html"><a href="data-preparation-1.html#host-classes--after-filtering"><i class="fa fa-check"></i><b>3.0.3</b> Host classes- after filtering</a></li>
 <li class="chapter" data-level="3.0.4" data-path="data-preparation-1.html"><a href="data-preparation-1.html#count-host-classes-per-species"><i class="fa fa-check"></i><b>3.0.4</b> Count host classes per species</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-statistics.html"><a href="data-statistics.html"><i class="fa fa-check"></i><b>4</b> Data statistics</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="data-statistics.html"><a href="data-statistics.html#load-data-1"><i class="fa fa-check"></i><b>4.0.1</b> Load data</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://www.alberdilab.dk" target="blank"><b>www.alberdilab.dk</b></a></li>
@@ -2029,12 +2041,32 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
             <section class="normal" id="section-">
 <div id="data-preparation" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data preparation<a href="data-preparation.html#data-preparation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="load-data" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Load data<a href="data-preparation.html#load-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Load the original data files outputted by the bioinformatic pipeline.</p>
-<div id="ehi-mags" class="section level3 hasAnchor" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> EHI MAGs<a href="data-preparation.html#ehi-mags" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb3-1"><a href="data-preparation.html#cb3-1" tabindex="-1"></a>ehi_mags <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/ehi_mags.csv&quot;</span>)</span></code></pre></div>
+<div id="searching-for-the-mags" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Searching for the MAGs<a href="data-preparation.html#searching-for-the-mags" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Choose the MAGs:
+In this case, we will be working with Parabacteroides distasonis and Phocaeicola vulgatus. In the EHI database, select the MAGs with &gt; 90% completeness and &lt; 2.5 contamination. Do the same in the GTDB, but also filter for isolation source CONTAINS feces.</li>
+</ol>
+</div>
+<div id="downloading-the-mags" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Downloading the MAGs:<a href="data-preparation.html#downloading-the-mags" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Download the EHI_MAG index for each species (in /data/mags_metadata folder) and the curl file from the GTDB and place in each species directory in Mjolnir.</p></li>
+<li><p>Run the create_index.R script to create an index of all the MAGs and the download paths</p></li>
+<li><p>Run the downloading_mags.smk to download all the genomes</p></li>
+<li><p>Unzip all the MAGs and make sure they are in the same folder. Make a screen session for each species.</p></li>
+<li><p>Run drakkar annotating_function.smk to re-annotate all the MAGs:</p></li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash script-source"><code class="sourceCode bash"><span id="cb3-1"><a href="data-preparation.html#cb3-1" tabindex="-1"></a><span class="ex">drakkar</span> annotating <span class="at">-b</span> /maps/projects/alberdilab/people/pjq449/comparative_metagenomics/data/parabacteroides_distasonis/mags/unzipped <span class="at">-o</span> /maps/projects/alberdilab/people/pjq449/comparative_metagenomics <span class="at">--env_path</span> /projects/alberdilab/data/environments/drakkar <span class="at">--annotation-type</span> function </span></code></pre></div>
+</div>
+<div id="r-studio--data-analysis" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> R Studio- Data Analysis:<a href="data-preparation.html#r-studio--data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="load-data" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Load data<a href="data-preparation.html#load-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ehi-mags" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> EHI MAGs<a href="data-preparation.html#ehi-mags" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb4-1"><a href="data-preparation.html#cb4-1" tabindex="-1"></a>ehi_mags <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/ehi_mags.csv&quot;</span>)</span></code></pre></div>
 <pre><code>Rows: 8846 Columns: 52
 ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
@@ -2046,26 +2078,65 @@ lgl  (1): annotated
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
-<div id="prepare-color-scheme" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Prepare color scheme<a href="data-preparation.html#prepare-color-scheme" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="prepare-color-scheme" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Prepare color scheme<a href="data-preparation.html#prepare-color-scheme" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="www.alberdilab.dk">AlberdiLab</a> projects use unified color schemes developed for the <a href="www.earthhologenome.org">Earth Hologenome Initiative</a>, to facilitate figure interpretation.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb5-1"><a href="data-preparation.html#cb5-1" tabindex="-1"></a>ehi_mags_p <span class="ot">&lt;-</span> ehi_mags <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="data-preparation.html#cb5-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">phylum=</span><span class="fu">str_remove_all</span>(phylum, <span class="st">&quot;p__&quot;</span>)) </span>
-<span id="cb5-3"><a href="data-preparation.html#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="data-preparation.html#cb5-4" tabindex="-1"></a>phylum_colors <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;https://raw.githubusercontent.com/earthhologenome/EHI_taxonomy_colour/main/ehi_phylum_colors.tsv&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a href="data-preparation.html#cb5-5" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">phylum=</span><span class="fu">str_remove_all</span>(phylum, <span class="st">&quot;p__&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-6"><a href="data-preparation.html#cb5-6" tabindex="-1"></a>    <span class="fu">right_join</span>(ehi_mags_p, <span class="at">by=</span><span class="fu">join_by</span>(phylum <span class="sc">==</span> phylum)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-7"><a href="data-preparation.html#cb5-7" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(phylum, colors) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-8"><a href="data-preparation.html#cb5-8" tabindex="-1"></a>    <span class="fu">unique</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb5-9"><a href="data-preparation.html#cb5-9" tabindex="-1"></a>    <span class="fu">arrange</span>(phylum) <span class="sc">%&gt;%</span></span>
-<span id="cb5-10"><a href="data-preparation.html#cb5-10" tabindex="-1"></a>    <span class="fu">pull</span>(colors, <span class="at">name=</span>phylum)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb6-1"><a href="data-preparation.html#cb6-1" tabindex="-1"></a>ehi_mags_p <span class="ot">&lt;-</span> ehi_mags <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="data-preparation.html#cb6-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">phylum=</span><span class="fu">str_remove_all</span>(phylum, <span class="st">&quot;p__&quot;</span>)) </span>
+<span id="cb6-3"><a href="data-preparation.html#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="data-preparation.html#cb6-4" tabindex="-1"></a>phylum_colors <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;https://raw.githubusercontent.com/earthhologenome/EHI_taxonomy_colour/main/ehi_phylum_colors.tsv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="data-preparation.html#cb6-5" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">phylum=</span><span class="fu">str_remove_all</span>(phylum, <span class="st">&quot;p__&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="data-preparation.html#cb6-6" tabindex="-1"></a>    <span class="fu">right_join</span>(ehi_mags_p, <span class="at">by=</span><span class="fu">join_by</span>(phylum <span class="sc">==</span> phylum)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="data-preparation.html#cb6-7" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(phylum, colors) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-8"><a href="data-preparation.html#cb6-8" tabindex="-1"></a>    <span class="fu">unique</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-9"><a href="data-preparation.html#cb6-9" tabindex="-1"></a>    <span class="fu">arrange</span>(phylum) <span class="sc">%&gt;%</span></span>
+<span id="cb6-10"><a href="data-preparation.html#cb6-10" tabindex="-1"></a>    <span class="fu">pull</span>(colors, <span class="at">name=</span>phylum)</span></code></pre></div>
+<div id="sample-metadata" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Sample metadata<a href="data-preparation.html#sample-metadata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb7-1"><a href="data-preparation.html#cb7-1" tabindex="-1"></a><span class="do">##search!</span></span></code></pre></div>
 </div>
-<div id="wrap-working-objects" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Wrap working objects<a href="data-preparation.html#wrap-working-objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="genome-annotations" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Genome annotations<a href="data-preparation.html#genome-annotations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb8-1"><a href="data-preparation.html#cb8-1" tabindex="-1"></a><span class="co"># Read the mapping</span></span>
+<span id="cb8-2"><a href="data-preparation.html#cb8-2" tabindex="-1"></a>contig_to_genome <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;data/p_dist_contig_to_genome.tsv&quot;</span>, </span>
+<span id="cb8-3"><a href="data-preparation.html#cb8-3" tabindex="-1"></a>                              <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">&quot;contig&quot;</span>, <span class="st">&quot;genome&quot;</span>))</span></code></pre></div>
+<pre><code>Rows: 13976 Columns: 2
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: &quot;\t&quot;
+chr (2): contig, genome
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb10-1"><a href="data-preparation.html#cb10-1" tabindex="-1"></a><span class="co"># Read annotations and add genome names</span></span>
+<span id="cb10-2"><a href="data-preparation.html#cb10-2" tabindex="-1"></a>genome_annotations <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;data/gene_annotations.tsv.xz&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="data-preparation.html#cb10-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">contig =</span> <span class="fu">sub</span>(<span class="st">&quot;_[^_]*$&quot;</span>, <span class="st">&quot;&quot;</span>, gene)) <span class="sc">%&gt;%</span>  <span class="co"># Extract contig name from gene</span></span>
+<span id="cb10-4"><a href="data-preparation.html#cb10-4" tabindex="-1"></a>  <span class="fu">left_join</span>(contig_to_genome, <span class="at">by =</span> <span class="st">&quot;contig&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="data-preparation.html#cb10-5" tabindex="-1"></a>  <span class="fu">select</span>(gene, genome, contig, <span class="fu">everything</span>())</span></code></pre></div>
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details, e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
+<pre><code>Rows: 374229 Columns: 13
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: &quot;\t&quot;
+chr (11): gene, strand, kegg, ec, pfam, cazy, resistance_type, resistance_target, vf, vf_type, signalp
+dbl  (2): start, end
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div id="distill-annotations-into-gifts" class="section level3 hasAnchor" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> Distill annotations into GIFTs<a href="data-preparation.html#distill-annotations-into-gifts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb13-1"><a href="data-preparation.html#cb13-1" tabindex="-1"></a>genome_gifts <span class="ot">&lt;-</span> <span class="fu">distill</span>(genome_annotations,GIFT_db,<span class="at">genomecol=</span> <span class="dv">2</span>, <span class="at">annotcol=</span><span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>), <span class="at">verbosity =</span> T)</span></code></pre></div>
+</div>
+</div>
+<div id="wrap-working-objects" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Wrap working objects<a href="data-preparation.html#wrap-working-objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>All working objects are wrapped into a single Rdata object to facilitate downstream usage.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb6-1"><a href="data-preparation.html#cb6-1" tabindex="-1"></a><span class="fu">save</span>(ehi_mags,</span>
-<span id="cb6-2"><a href="data-preparation.html#cb6-2" tabindex="-1"></a>     phylum_colors,</span>
-<span id="cb6-3"><a href="data-preparation.html#cb6-3" tabindex="-1"></a>     <span class="at">file =</span> <span class="st">&quot;data/data.Rdata&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r script-source"><code class="sourceCode r"><span id="cb14-1"><a href="data-preparation.html#cb14-1" tabindex="-1"></a><span class="fu">save</span>(ehi_mags,</span>
+<span id="cb14-2"><a href="data-preparation.html#cb14-2" tabindex="-1"></a>     phylum_colors,</span>
+<span id="cb14-3"><a href="data-preparation.html#cb14-3" tabindex="-1"></a>     genome_annotations,</span>
+<span id="cb14-4"><a href="data-preparation.html#cb14-4" tabindex="-1"></a>     genome_gifts,</span>
+<span id="cb14-5"><a href="data-preparation.html#cb14-5" tabindex="-1"></a>     <span class="at">file =</span> <span class="st">&quot;data/data.Rdata&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>

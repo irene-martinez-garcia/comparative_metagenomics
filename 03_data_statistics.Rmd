@@ -1,0 +1,14 @@
+# Data statistics
+
+### Load data
+```{r load data statistics}
+load("data/data.Rdata")
+```
+
+Number of MAGs
+```{r count n MAGS}
+genome_annotations %>%
+  distinct(genome) %>%
+  nrow()
+```
+

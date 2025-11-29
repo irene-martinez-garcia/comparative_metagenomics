@@ -1,16 +1,35 @@
 # Data preparation
 
-## Load data
 
-Load the original data files outputted by the bioinformatic pipeline.
+## Searching for the MAGs
+1) Choose the MAGs:
+In this case, we will be working with Parabacteroides distasonis and Phocaeicola vulgatus. In the EHI database, select the MAGs with > 90% completeness and < 2.5 contamination. Do the same in the GTDB, but also filter for isolation source CONTAINS feces.
+
+## Downloading the MAGs:
+2) Download the EHI_MAG index for each species (in /data/mags_metadata folder) and the curl file from the GTDB and place in each species directory in Mjolnir.
+
+3) Run the create_index.R script to create an index of all the MAGs and the download paths
+
+4) Run the downloading_mags.smk to download all the genomes
+
+5) Unzip all the MAGs and make sure they are in the same folder. Make a screen session for each species.
+
+6) Run drakkar annotating_function.smk to re-annotate all the MAGs:
+```{bash, eval = FALSE}
+drakkar annotating -b /maps/projects/alberdilab/people/pjq449/comparative_metagenomics/data/parabacteroides_distasonis/mags/unzipped -o /maps/projects/alberdilab/people/pjq449/comparative_metagenomics --env_path /projects/alberdilab/data/environments/drakkar --annotation-type function 
+```
+
+
+
+
+
+## R Studio- Data Analysis:
+## Load data
 
 ### EHI MAGs
 ```{r load ehi mags first}
 ehi_mags <- read_csv("data/ehi_mags.csv")
 ```
-
-
-
 ## Prepare color scheme
 
 [AlberdiLab](www.alberdilab.dk) projects use unified color schemes developed for the [Earth Hologenome Initiative](www.earthhologenome.org), to facilitate figure interpretation.
@@ -29,6 +48,32 @@ phylum_colors <- read_tsv("https://raw.githubusercontent.com/earthhologenome/EHI
 
 ```
 
+### Sample metadata
+```{r load sample metadata}
+##search!
+```
+
+### Genome annotations
+```{r load the genome annotations}
+# Read the mapping
+contig_to_genome <- read_tsv("data/p_dist_contig_to_genome.tsv", 
+                              col_names = c("contig", "genome"))
+
+# Read annotations and add genome names
+genome_annotations <- read_tsv("data/gene_annotations.tsv.xz") %>%
+  mutate(contig = sub("_[^_]*$", "", gene)) %>%  # Extract contig name from gene
+  left_join(contig_to_genome, by = "contig") %>%
+  select(gene, genome, contig, everything())
+```
+
+### Distill annotations into GIFTs 
+
+```{r distill_annotations, warning=FALSE, comments="", message=FALSE, eval=FALSE}
+genome_gifts <- distill(genome_annotations,GIFT_db,genomecol= 2, annotcol=c(6,7,8,9), verbosity = T)
+```
+
+
+
 ## Wrap working objects
 
 All working objects are wrapped into a single Rdata object to facilitate downstream usage.
@@ -36,6 +81,8 @@ All working objects are wrapped into a single Rdata object to facilitate downstr
 ```{r wrap_working_objects, warning=FALSE, comments="", message=FALSE, eval=FALSE}
 save(ehi_mags,
      phylum_colors,
+     genome_annotations,
+     genome_gifts,
      file = "data/data.Rdata")
 ```
 
